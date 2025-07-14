@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Encuentra tu trabajo ideal</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <span class="logo-letters">JF</span>
+                    </div>
+                    <h1>JobFinder</h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="#home">Inicio</a>
+                    <a href="#jobs">Empleos</a>
+                    <a href="pricing.html">Precios</a>
+                    <a href="empresarios.html">Para Empresas</a>
+                    <a href="acerca.html">Acerca de</a>
+                    <a href="#contact">Contacto</a>
+                    <div class="user-section" id="userSection">
+                        <a href="login.html" class="login-link" id="loginLink">
+                            <i class="fas fa-user"></i>
+                            Iniciar Sesión
+                        </a>
+                        <div class="user-menu hidden" id="userMenu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="userName">Usuario</span>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="#" onclick="showProfile()">
+                                    <i class="fas fa-user"></i>
+                                    Mi Perfil
+                                </a>
+                                <a href="#" onclick="showFavorites()">
+                                    <i class="fas fa-heart"></i>
+                                    Favoritos
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="home" class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h2>Encuentra tu trabajo ideal</h2>
+                    <p>Descubre miles de oportunidades laborales en las mejores empresas</p>
+                    
+                    <div class="search-box">
+                        <div class="search-input">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="jobSearch" placeholder="¿Qué trabajo buscas?">
+                        </div>
+                        <div class="location-input">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <input type="text" id="locationSearch" placeholder="Ciudad o ubicación">
+                        </div>
+                        <button class="search-btn" onclick="searchJobs()">
+                            <i class="fas fa-search"></i>
+                            Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="filters" class="filters-section">
+            <div class="container">
+                <h3>Filtrar por:</h3>
+                <div class="filters">
+                    <select id="categoryFilter">
+                        <option value="">Todas las categorías</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="ventas">Ventas</option>
+                        <option value="diseño">Diseño</option>
+                        <option value="finanzas">Finanzas</option>
+                        <option value="recursos-humanos">Recursos Humanos</option>
+                        <option value="salud">Salud</option>
+                        <option value="educacion">Educación</option>
+                        <option value="legal">Legal</option>
+                        <option value="ingenieria">Ingeniería</option>
+                        <option value="consultoria">Consultoría</option>
+                        <option value="logistica">Logística</option>
+                        <option value="turismo">Turismo</option>
+                        <option value="comunicacion">Comunicación</option>
+                        <option value="agricultura">Agricultura</option>
+                        <option value="energia">Energía</option>
+                        <option value="construccion">Construcción</option>
+                        <option value="banca">Banca</option>
+                        <option value="seguros">Seguros</option>
+                        <option value="inmobiliaria">Inmobiliaria</option>
+                        <option value="gastronomia">Gastronomía</option>
+                        <option value="transporte">Transporte</option>
+                        <option value="retail">Retail</option>
+                        <option value="manufactura">Manufactura</option>
+                    </select>
+                    
+                    <select id="experienceFilter">
+                        <option value="">Cualquier experiencia</option>
+                        <option value="junior">Junior (0-2 años)</option>
+                        <option value="mid">Semi-senior (2-5 años)</option>
+                        <option value="senior">Senior (5+ años)</option>
+                    </select>
+                    
+                    <select id="typeFilter">
+                        <option value="">Tipo de empleo</option>
+                        <option value="tiempo-completo">Tiempo completo</option>
+                        <option value="medio-tiempo">Medio tiempo</option>
+                        <option value="freelance">Freelance</option>
+                        <option value="remoto">Remoto</option>
+                    </select>
+                    
+                    <button class="clear-filters" onclick="clearFilters()">Limpiar filtros</button>
+                </div>
+            </div>
+        </section>
+
+        <section id="jobs" class="jobs-section">
+            <div class="container">
+                <div class="jobs-header">
+                    <h3>Empleos disponibles</h3>
+                    <div class="results-count">
+                        <span id="jobsCount">0</span> empleos encontrados
+                    </div>
+                </div>
+                
+                <div class="jobs-grid" id="jobsContainer">
+                    <!-- Los empleos se cargarán aquí dinámicamente -->
+                </div>
+                
+                <div class="load-more">
+                    <button class="load-more-btn" onclick="loadMoreJobs()">
+                        Cargar más empleos
+                    </button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobFinder</h4>
+                    <p>Tu plataforma de confianza para encontrar el trabajo ideal.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="#home">Inicio</a></li>
+                        <li><a href="#jobs">Empleos</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                        <li><a href="#contact">Contacto</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobFinder. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para detalles del empleo -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeJobModal()">&times;</span>
+            <div id="jobModalContent">
+                <!-- El contenido del trabajo se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script src="api-client.js"></script>
+    <script src="email-service.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 

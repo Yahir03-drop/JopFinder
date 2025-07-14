@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Panel de Datos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        .admin-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            background: #f8f9fa;
+            min-height: 100vh;
+        }
+        
+        .admin-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+        
+        .data-section {
+            background: white;
+            margin-bottom: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .section-header {
+            background: #667eea;
+            color: white;
+            padding: 1rem 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .section-body {
+            padding: 1.5rem;
+        }
+        
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+        }
+        
+        .data-table th,
+        .data-table td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .data-table th {
+            background: #f8f9fa;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .data-table tr:hover {
+            background: #f8f9fa;
+        }
+        
+        .json-data {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 1rem;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .stat-label {
+            color: #666;
+            margin-top: 0.5rem;
+        }
+        
+        .refresh-btn {
+            background: #28a745;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .clear-btn {
+            background: #dc3545;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+        
+        .export-btn {
+            background: #ffc107;
+            color: #000;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            cursor: pointer;
+            margin-left: 0.5rem;
+        }
+        
+        .no-data {
+            text-align: center;
+            padding: 2rem;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .location-info {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-bottom: 1rem;
+        }
+        
+        .location-info h4 {
+            margin: 0 0 0.5rem 0;
+            color: #0066cc;
+        }
+        
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: white;
+            text-decoration: none;
+            background: rgba(255,255,255,0.2);
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: background 0.3s;
+        }
+        
+        .back-link:hover {
+            background: rgba(255,255,255,0.3);
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <div class="admin-header">
+            <h1><i class="fas fa-database"></i> Panel de Datos - JobFinder</h1>
+            <p>Aquí puedes ver todos los datos almacenados de usuarios, empleos y aplicaciones</p>
+            <a href="index.html" class="back-link">
+                <i class="fas fa-arrow-left"></i>
+                Volver a JobFinder
+            </a>
+        </div>
+
+        <!-- Estadísticas Generales -->
+        <div class="stats-grid" id="statsGrid">
+            <!-- Se llenarán dinámicamente -->
+        </div>
+
+        <!-- Información de Ubicación de Datos -->
+        <div class="location-info">
+            <h4><i class="fas fa-info-circle"></i> ¿Dónde se guardan los datos?</h4>
+            <p><strong>🔗 En el navegador (LocalStorage):</strong> Los datos se almacenan localmente en tu navegador y persisten entre sesiones.</p>
+            <p><strong>📍 Ubicación física:</strong> <code>C:\Users\jymmy\AppData\Local\Google\Chrome\User Data\Default\Local Storage</code></p>
+            <p><strong>🔑 Claves de almacenamiento:</strong> <code>firebase_users</code>, <code>firebase_jobs</code>, <code>firebase_applications</code>, <code>emailHistory</code></p>
+        </div>
+
+        <!-- Usuarios Registrados -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2><i class="fas fa-users"></i> Usuarios Registrados</h2>
+                <div>
+                    <button class="refresh-btn" onclick="loadAllData()">
+                        <i class="fas fa-sync"></i>
+                        Actualizar
+                    </button>
+                    <button class="export-btn" onclick="exportUsers()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                    <button class="clear-btn" onclick="clearUsers()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+            <div class="section-body">
+                <div id="usersTableContainer">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                <h4>Datos Raw (JSON):</h4>
+                <div class="json-data" id="usersJson">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Empleos Publicados -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2><i class="fas fa-briefcase"></i> Empleos Publicados</h2>
+                <div>
+                    <button class="refresh-btn" onclick="loadAllData()">
+                        <i class="fas fa-sync"></i>
+                        Actualizar
+                    </button>
+                    <button class="export-btn" onclick="exportJobs()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                    <button class="clear-btn" onclick="clearJobs()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+            <div class="section-body">
+                <div id="jobsTableContainer">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                <h4>Datos Raw (JSON):</h4>
+                <div class="json-data" id="jobsJson">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Aplicaciones a Empleos -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2><i class="fas fa-paper-plane"></i> Aplicaciones a Empleos</h2>
+                <div>
+                    <button class="refresh-btn" onclick="loadAllData()">
+                        <i class="fas fa-sync"></i>
+                        Actualizar
+                    </button>
+                    <button class="export-btn" onclick="exportApplications()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                    <button class="clear-btn" onclick="clearApplications()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+            <div class="section-body">
+                <div id="applicationsTableContainer">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                <h4>Datos Raw (JSON):</h4>
+                <div class="json-data" id="applicationsJson">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Historial de Emails -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2><i class="fas fa-envelope"></i> Historial de Emails</h2>
+                <div>
+                    <button class="refresh-btn" onclick="loadAllData()">
+                        <i class="fas fa-sync"></i>
+                        Actualizar
+                    </button>
+                    <button class="export-btn" onclick="exportEmails()">
+                        <i class="fas fa-download"></i>
+                        Exportar
+                    </button>
+                    <button class="clear-btn" onclick="clearEmails()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar
+                    </button>
+                </div>
+            </div>
+            <div class="section-body">
+                <div id="emailsTableContainer">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+                <h4>Datos Raw (JSON):</h4>
+                <div class="json-data" id="emailsJson">
+                    <!-- Se llenará dinámicamente -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Instrucciones para ver en DevTools -->
+        <div class="data-section">
+            <div class="section-header">
+                <h2><i class="fas fa-tools"></i> Cómo Ver en DevTools</h2>
+            </div>
+            <div class="section-body">
+                <ol>
+                    <li><strong>Abre DevTools:</strong> Presiona <kbd>F12</kbd> o <kbd>Ctrl+Shift+I</kbd></li>
+                    <li><strong>Ve a la pestaña "Application"</strong> (o "Aplicación")</li>
+                    <li><strong>En el sidebar izquierdo:</strong> Expande "Local Storage"</li>
+                    <li><strong>Selecciona tu dominio:</strong> Haz clic en el archivo local</li>
+                    <li><strong>Verás las claves:</strong>
+                        <ul>
+                            <li><code>firebase_users</code> - Datos de usuarios registrados</li>
+                            <li><code>firebase_jobs</code> - Empleos publicados</li>
+                            <li><code>firebase_applications</code> - Aplicaciones a empleos</li>
+                            <li><code>emailHistory</code> - Historial de emails enviados</li>
+                            <li><code>firebase_current_user</code> - Usuario actual (en SessionStorage)</li>
+                        </ul>
+                    </li>
+                </ol>
+                
+                <div style="margin-top: 1rem; padding: 1rem; background: #fff3cd; border: 1px solid #ffeaa7; border-radius: 6px;">
+                    <strong>💡 Tip:</strong> Los datos persisten entre sesiones del navegador. Solo se borran si limpias manualmente el localStorage o usas los botones "Limpiar" de arriba.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Cargar todos los datos al inicio
+        document.addEventListener('DOMContentLoaded', loadAllData);
+
+        function loadAllData() {
+            loadStats();
+            loadUsers();
+            loadJobs();
+            loadApplications();
+            loadEmails();
+        }
+
+        function loadStats() {
+            const users = JSON.parse(localStorage.getItem('firebase_users') || '[]');
+            const jobs = JSON.parse(localStorage.getItem('firebase_jobs') || '[]');
+            const applications = JSON.parse(localStorage.getItem('firebase_applications') || '[]');
+            const emails = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+
+            const statsHtml = `
+                <div class="stat-card">
+                    <div class="stat-number">${users.length}</div>
+                    <div class="stat-label">Usuarios Registrados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${jobs.length}</div>
+                    <div class="stat-label">Empleos Publicados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${applications.length}</div>
+                    <div class="stat-label">Aplicaciones</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${emails.length}</div>
+                    <div class="stat-label">Emails Enviados</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${users.filter(u => u.userType === 'candidate').length}</div>
+                    <div class="stat-label">Candidatos</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">${users.filter(u => u.userType === 'company').length}</div>
+                    <div class="stat-label">Empresas</div>
+                </div>
+            `;
+
+            document.getElementById('statsGrid').innerHTML = statsHtml;
+        }
+
+        function loadUsers() {
+            const users = JSON.parse(localStorage.getItem('firebase_users') || '[]');
+            const container = document.getElementById('usersTableContainer');
+            const jsonContainer = document.getElementById('usersJson');
+
+            if (users.length === 0) {
+                container.innerHTML = '<div class="no-data">No hay usuarios registrados</div>';
+                jsonContainer.textContent = '[]';
+                return;
+            }
+
+            const tableHtml = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Tipo</th>
+                            <th>Empresa</th>
+                            <th>Fecha Registro</th>
+                            <th>Último Login</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${users.map(user => `
+                            <tr>
+                                <td>${user.uid}</td>
+                                <td>${user.name}</td>
+                                <td>${user.email}</td>
+                                <td>${user.userType}</td>
+                                <td>${user.company || '-'}</td>
+                                <td>${new Date(user.createdAt).toLocaleString()}</td>
+                                <td>${new Date(user.lastLogin).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHtml;
+            jsonContainer.textContent = JSON.stringify(users, null, 2);
+        }
+
+        function loadJobs() {
+            const jobs = JSON.parse(localStorage.getItem('firebase_jobs') || '[]');
+            const container = document.getElementById('jobsTableContainer');
+            const jsonContainer = document.getElementById('jobsJson');
+
+            if (jobs.length === 0) {
+                container.innerHTML = '<div class="no-data">No hay empleos publicados</div>';
+                jsonContainer.textContent = '[]';
+                return;
+            }
+
+            const tableHtml = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Título</th>
+                            <th>Empresa</th>
+                            <th>Ubicación</th>
+                            <th>Tipo</th>
+                            <th>Salario</th>
+                            <th>Sin Experiencia</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${jobs.map(job => `
+                            <tr>
+                                <td>${job.id}</td>
+                                <td>${job.title}</td>
+                                <td>${job.company}</td>
+                                <td>${job.location}</td>
+                                <td>${job.type}</td>
+                                <td>${job.salary}</td>
+                                <td>${job.entryLevel ? '✅' : '❌'}</td>
+                                <td>${new Date(job.publishedAt).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHtml;
+            jsonContainer.textContent = JSON.stringify(jobs, null, 2);
+        }
+
+        function loadApplications() {
+            const applications = JSON.parse(localStorage.getItem('firebase_applications') || '[]');
+            const container = document.getElementById('applicationsTableContainer');
+            const jsonContainer = document.getElementById('applicationsJson');
+
+            if (applications.length === 0) {
+                container.innerHTML = '<div class="no-data">No hay aplicaciones registradas</div>';
+                jsonContainer.textContent = '[]';
+                return;
+            }
+
+            const tableHtml = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Empleo ID</th>
+                            <th>Candidato</th>
+                            <th>Email</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${applications.map(app => `
+                            <tr>
+                                <td>${app.id}</td>
+                                <td>${app.jobId}</td>
+                                <td>${app.applicantName || app.applicantId}</td>
+                                <td>${app.applicantEmail}</td>
+                                <td>${app.status}</td>
+                                <td>${new Date(app.appliedAt).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHtml;
+            jsonContainer.textContent = JSON.stringify(applications, null, 2);
+        }
+
+        function loadEmails() {
+            const emails = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+            const container = document.getElementById('emailsTableContainer');
+            const jsonContainer = document.getElementById('emailsJson');
+
+            if (emails.length === 0) {
+                container.innerHTML = '<div class="no-data">No hay emails enviados</div>';
+                jsonContainer.textContent = '[]';
+                return;
+            }
+
+            const tableHtml = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Para</th>
+                            <th>Asunto</th>
+                            <th>Estado</th>
+                            <th>Fecha</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${emails.map(email => `
+                            <tr>
+                                <td>${email.to}</td>
+                                <td>${email.subject}</td>
+                                <td>${email.status}</td>
+                                <td>${new Date(email.sentAt || email.timestamp).toLocaleString()}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+
+            container.innerHTML = tableHtml;
+            jsonContainer.textContent = JSON.stringify(emails, null, 2);
+        }
+
+        // Funciones de exportación
+        function exportUsers() {
+            const users = JSON.parse(localStorage.getItem('firebase_users') || '[]');
+            downloadJSON(users, 'usuarios_jobfinder.json');
+        }
+
+        function exportJobs() {
+            const jobs = JSON.parse(localStorage.getItem('firebase_jobs') || '[]');
+            downloadJSON(jobs, 'empleos_jobfinder.json');
+        }
+
+        function exportApplications() {
+            const applications = JSON.parse(localStorage.getItem('firebase_applications') || '[]');
+            downloadJSON(applications, 'aplicaciones_jobfinder.json');
+        }
+
+        function exportEmails() {
+            const emails = JSON.parse(localStorage.getItem('emailHistory') || '[]');
+            downloadJSON(emails, 'emails_jobfinder.json');
+        }
+
+        function downloadJSON(data, filename) {
+            const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+        }
+
+        // Funciones de limpieza
+        function clearUsers() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los usuarios? Esta acción no se puede deshacer.')) {
+                localStorage.removeItem('firebase_users');
+                loadAllData();
+                alert('Usuarios eliminados');
+            }
+        }
+
+        function clearJobs() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los empleos?')) {
+                localStorage.removeItem('firebase_jobs');
+                loadAllData();
+                alert('Empleos eliminados');
+            }
+        }
+
+        function clearApplications() {
+            if (confirm('¿Estás seguro de que quieres eliminar todas las aplicaciones?')) {
+                localStorage.removeItem('firebase_applications');
+                loadAllData();
+                alert('Aplicaciones eliminadas');
+            }
+        }
+
+        function clearEmails() {
+            if (confirm('¿Estás seguro de que quieres eliminar el historial de emails?')) {
+                localStorage.removeItem('emailHistory');
+                loadAllData();
+                alert('Historial de emails eliminado');
+            }
+        }
+    </script>
+</body>
+</html> 

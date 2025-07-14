@@ -1,0 +1,46 @@
+{
+  "users": [
+    {
+      "id": "1752474244118",
+      "email": "crisft@gmail.com",
+      "password": "Cris123",
+      "name": "cris",
+      "userType": "candidate",
+      "company": "",
+      "position": "",
+      "phone": "5515042412",
+      "createdAt": "2025-07-14T06:24:04.118Z",
+      "lastLogin": "2025-07-14T06:24:04.119Z",
+      "isActive": true,
+      "emailVerified": true
+    }
+  ],
+  "jobs": [],
+  "applications": [],
+  "companies": [],
+  "categories": [
+    "Tecnología",
+    "Marketing",
+    "Ventas",
+    "Recursos Humanos",
+    "Finanzas",
+    "Diseño",
+    "Educación",
+    "Salud",
+    "Ingeniería",
+    "Otros"
+  ],
+  "locations": [
+    "Ciudad de México",
+    "Guadalajara",
+    "Monterrey",
+    "Puebla",
+    "Tijuana",
+    "León",
+    "Juárez",
+    "Torreón",
+    "Querétaro",
+    "Mérida",
+    "Remoto"
+  ]
+}

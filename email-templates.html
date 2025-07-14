@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plantillas de Email - JobFinder</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 30px;
+        }
+        
+        .template {
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            margin: 20px 0;
+            overflow: hidden;
+        }
+        
+        .template-header {
+            background: #f8f9fa;
+            padding: 15px 20px;
+            border-bottom: 1px solid #e9ecef;
+            font-weight: bold;
+            color: #495057;
+        }
+        
+        .template-content {
+            padding: 20px;
+            background: white;
+        }
+        
+        .email-preview {
+            border: 1px solid #dee2e6;
+            border-radius: 6px;
+            padding: 20px;
+            background: #fdfdfd;
+            font-family: Arial, sans-serif;
+            line-height: 1.6;
+        }
+        
+        .variables {
+            background: #e7f3ff;
+            border: 1px solid #b3d9ff;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .variables h4 {
+            margin: 0 0 10px 0;
+            color: #0066cc;
+        }
+        
+        .variable {
+            display: inline-block;
+            background: #fff;
+            border: 1px solid #0066cc;
+            border-radius: 4px;
+            padding: 4px 8px;
+            margin: 3px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #0066cc;
+        }
+        
+        .instructions {
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .code-block {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 4px;
+            padding: 15px;
+            margin: 10px 0;
+            font-family: monospace;
+            overflow-x: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📧 Plantillas de Email para JobFinder</h1>
+        
+        <div class="instructions">
+            <h3>🔧 Instrucciones de Configuración</h3>
+            <ol>
+                <li>Crear cuenta gratuita en <a href="https://www.emailjs.com" target="_blank">EmailJS.com</a></li>
+                <li>Configurar un servicio de email (Gmail, Outlook, etc.)</li>
+                <li>Crear estas plantillas en EmailJS</li>
+                <li>Copiar las claves en <code>email-service.js</code></li>
+            </ol>
+        </div>
+
+        <!-- Plantilla 1: Email de Bienvenida -->
+        <div class="template">
+            <div class="template-header">
+                📩 Plantilla 1: Email de Bienvenida (template_welcome)
+            </div>
+            <div class="template-content">
+                <div class="variables">
+                    <h4>Variables a configurar en EmailJS:</h4>
+                    <span class="variable">{{to_name}}</span>
+                    <span class="variable">{{to_email}}</span>
+                    <span class="variable">{{user_type}}</span>
+                    <span class="variable">{{registration_date}}</span>
+                    <span class="variable">{{login_url}}</span>
+                    <span class="variable">{{dashboard_url}}</span>
+                    <span class="variable">{{company_name}}</span>
+                    <span class="variable">{{logo_url}}</span>
+                </div>
+                
+                <div class="email-preview">
+                    <div style="text-align: center; margin-bottom: 20px;">
+                        <img src="{{logo_url}}" alt="JobFinder Logo" style="width: 60px; height: 60px;">
+                    </div>
+                    <h2 style="color: #667eea;">🎉 ¡Bienvenido a JobFinder!</h2>
+                    <p>Hola <strong>{{to_name}}</strong>,</p>
+                    <p>¡Gracias por unirte a JobFinder! Tu cuenta como <strong>{{user_type}}</strong> ha sido creada exitosamente el <strong>{{registration_date}}</strong>.</p>
+                    
+                    <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="color: #495057;">🚀 Próximos pasos:</h3>
+                        <ol>
+                            <li>Completa tu perfil profesional</li>
+                            <li>Explora las oportunidades disponibles</li>
+                            <li>Configura tus alertas de empleo</li>
+                        </ol>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="{{dashboard_url}}" style="background: #667eea; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Acceder a mi Dashboard</a>
+                    </div>
+                    
+                    <p>Si tienes alguna pregunta, no dudes en contactarnos.</p>
+                    <p>¡Bienvenido a bordo!</p>
+                    <p><strong>El equipo de {{company_name}}</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plantilla 2: Email de Verificación -->
+        <div class="template">
+            <div class="template-header">
+                🔐 Plantilla 2: Email de Verificación (template_verification)
+            </div>
+            <div class="template-content">
+                <div class="variables">
+                    <h4>Variables a configurar en EmailJS:</h4>
+                    <span class="variable">{{to_name}}</span>
+                    <span class="variable">{{to_email}}</span>
+                    <span class="variable">{{verification_code}}</span>
+                    <span class="variable">{{verification_url}}</span>
+                    <span class="variable">{{company_name}}</span>
+                </div>
+                
+                <div class="email-preview">
+                    <h2 style="color: #28a745;">🔐 Verifica tu cuenta</h2>
+                    <p>Hola <strong>{{to_name}}</strong>,</p>
+                    <p>Para completar tu registro en JobFinder, necesitas verificar tu dirección de email.</p>
+                    
+                    <div style="background: #e7f3ff; border: 2px solid #007bff; padding: 20px; border-radius: 8px; text-align: center; margin: 20px 0;">
+                        <h3 style="margin: 0; color: #007bff;">Tu código de verificación:</h3>
+                        <div style="font-size: 2em; font-weight: bold; letter-spacing: 3px; margin: 10px 0; color: #007bff;">{{verification_code}}</div>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="{{verification_url}}" style="background: #28a745; color: white; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Verificar Mi Cuenta</a>
+                    </div>
+                    
+                    <p><small>Este código expira en 24 horas. Si no solicitaste esta verificación, puedes ignorar este email.</small></p>
+                    <p><strong>El equipo de {{company_name}}</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Plantilla 3: Notificación de Aplicación -->
+        <div class="template">
+            <div class="template-header">
+                📝 Plantilla 3: Notificación de Aplicación (template_application)
+            </div>
+            <div class="template-content">
+                <div class="variables">
+                    <h4>Variables a configurar en EmailJS:</h4>
+                    <span class="variable">{{to_name}}</span>
+                    <span class="variable">{{to_email}}</span>
+                    <span class="variable">{{job_title}}</span>
+                    <span class="variable">{{applicant_name}}</span>
+                    <span class="variable">{{applicant_email}}</span>
+                    <span class="variable">{{application_date}}</span>
+                    <span class="variable">{{dashboard_url}}</span>
+                    <span class="variable">{{company_name}}</span>
+                </div>
+                
+                <div class="email-preview">
+                    <h2 style="color: #ffc107;">📝 Nueva Aplicación Recibida</h2>
+                    <p>Hola <strong>{{to_name}}</strong>,</p>
+                    <p>Has recibido una nueva aplicación para el puesto: <strong>{{job_title}}</strong></p>
+                    
+                    <div style="background: #fff3cd; border: 1px solid #ffc107; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                        <h3 style="margin: 0 0 10px 0; color: #856404;">📋 Detalles del Candidato:</h3>
+                        <p><strong>Nombre:</strong> {{applicant_name}}</p>
+                        <p><strong>Email:</strong> {{applicant_email}}</p>
+                        <p><strong>Fecha de aplicación:</strong> {{application_date}}</p>
+                    </div>
+                    
+                    <div style="text-align: center; margin: 30px 0;">
+                        <a href="{{dashboard_url}}" style="background: #ffc107; color: #212529; padding: 12px 24px; text-decoration: none; border-radius: 6px;">Ver Aplicación Completa</a>
+                    </div>
+                    
+                    <p>Puedes revisar el CV y contactar al candidato desde tu panel de empleador.</p>
+                    <p><strong>El equipo de {{company_name}}</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Configuración -->
+        <div class="template">
+            <div class="template-header">
+                ⚙️ Configuración en email-service.js
+            </div>
+            <div class="template-content">
+                <p>Después de crear las plantillas en EmailJS, reemplaza estas líneas en <code>email-service.js</code>:</p>
+                
+                <div class="code-block">
+// Reemplazar con tus datos reales de EmailJS
+this.emailjsPublicKey = 'tu_public_key_aqui';
+this.serviceId = 'tu_service_id';  
+this.templateId = 'template_welcome'; // Para email de bienvenida
+                </div>
+                
+                <div class="variables">
+                    <h4>🔑 Dónde encontrar las claves:</h4>
+                    <ul>
+                        <li><strong>Public Key:</strong> EmailJS Dashboard > Account > API Keys</li>
+                        <li><strong>Service ID:</strong> EmailJS Dashboard > Email Services</li>
+                        <li><strong>Template ID:</strong> EmailJS Dashboard > Email Templates</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Prueba -->
+        <div class="instructions">
+            <h3>🧪 Probar la Configuración</h3>
+            <p>Una vez configurado, puedes probar desde la consola del navegador:</p>
+            <div class="code-block">
+// Probar envío de email de bienvenida
+emailService.sendWelcomeEmail({
+    name: 'Tu Nombre',
+    email: 'tu_email@ejemplo.com',
+    userType: 'candidate'
+});
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Portal para Empresarios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="empresarios-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1><a href="index.html">JobFinder</a></h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">Inicio</a>
+                    <a href="index.html#jobs">Empleos</a>
+                    <a href="pricing.html">Precios</a>
+                    <a href="empresarios.html" class="active">Para Empresas</a>
+                    <div class="user-section" id="userSection">
+                        <a href="login.html" class="login-link" id="loginLink">
+                            <i class="fas fa-user"></i>
+                            Iniciar Sesión
+                        </a>
+                        <div class="user-menu hidden" id="userMenu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="userName">Usuario</span>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="dashboard.html">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Mi Dashboard
+                                </a>
+                                <a href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    Mi Perfil
+                                </a>
+                                <a href="favoritos.html">
+                                    <i class="fas fa-heart"></i>
+                                    Favoritos
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="empresarios-main">
+        <!-- Hero Section -->
+        <section class="empresarios-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>🚀 Encuentra talento joven y motivado</h1>
+                    <p>Publica empleos para candidatos sin experiencia y descubre el potencial de nuevos talentos</p>
+                    
+                    <div class="hero-cta">
+                        <button class="cta-btn primary" onclick="showJobForm()">
+                            <i class="fas fa-plus"></i>
+                            Publicar empleo gratis
+                        </button>
+                        <button class="cta-btn secondary" onclick="showCompanyStats()">
+                            <i class="fas fa-chart-bar"></i>
+                            Ver estadísticas
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Formulario de publicación -->
+        <section class="job-posting" id="jobPostingSection">
+            <div class="container">
+                <div class="posting-header">
+                    <h2>Publica un empleo para candidatos sin experiencia</h2>
+                    <p>Diseñado específicamente para atraer talento joven</p>
+                </div>
+                
+                <form class="job-form" id="jobPostingForm">
+                    <div class="form-section">
+                        <h3>Información básica</h3>
+                        
+                        <div class="form-group">
+                            <label for="jobTitle">Título del puesto *</label>
+                            <input type="text" id="jobTitle" placeholder="ej: Asistente de Marketing Junior" required>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="companyName">Empresa *</label>
+                                <input type="text" id="companyName" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="jobLocation">Ubicación *</label>
+                                <input type="text" id="jobLocation" placeholder="Ciudad o Remoto" required>
+                            </div>
+                        </div>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="jobType">Modalidad *</label>
+                                <select id="jobType" required>
+                                    <option value="">Selecciona modalidad</option>
+                                    <option value="tiempo-completo">Tiempo completo</option>
+                                    <option value="medio-tiempo">Medio tiempo</option>
+                                    <option value="practicas">Prácticas</option>
+                                    <option value="remoto">Remoto</option>
+                                </select>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="salary">Salario ofrecido *</label>
+                                <input type="text" id="salary" placeholder="$15,000 - $25,000 MXN" required>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Descripción del puesto</h3>
+                        
+                        <div class="form-group">
+                            <label for="jobDescription">Descripción *</label>
+                            <textarea id="jobDescription" rows="4" placeholder="Describe el puesto y responsabilidades..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="requirements">¿Qué buscas en el candidato? *</label>
+                            <textarea id="requirements" rows="3" placeholder="Habilidades deseadas, actitud, conocimientos básicos..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="benefits">¿Qué ofreces? *</label>
+                            <textarea id="benefits" rows="3" placeholder="Capacitación, crecimiento, beneficios..." required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3>Contacto</h3>
+                        
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="contactEmail">Email de contacto *</label>
+                                <input type="email" id="contactEmail" required>
+                            </div>
+                            
+                            <div class="form-group">
+                                <label for="contactPhone">Teléfono</label>
+                                <input type="tel" id="contactPhone">
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" onclick="previewJob()">
+                            <i class="fas fa-eye"></i>
+                            Vista previa
+                        </button>
+                        
+                        <button type="submit" class="btn-primary">
+                            <i class="fas fa-rocket"></i>
+                            Publicar empleo
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <!-- Empleos publicados -->
+        <section class="published-jobs">
+            <div class="container">
+                <h2>Empleos para candidatos sin experiencia</h2>
+                <div class="jobs-grid" id="entryLevelJobsGrid">
+                    <!-- Los empleos se cargarán aquí -->
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobFinder para Empresas</h4>
+                    <p>La plataforma líder para encontrar talento joven y sin experiencia.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#guias">Guías de contratación</a></li>
+                        <li><a href="#blog">Blog</a></li>
+                        <li><a href="#casos-exito">Casos de éxito</a></li>
+                        <li><a href="#webinars">Webinars</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Soporte</h4>
+                    <ul>
+                        <li><a href="#ayuda">Centro de ayuda</a></li>
+                        <li><a href="#contacto">Contacto</a></li>
+                        <li><a href="#chat">Chat en vivo</a></li>
+                        <li><a href="#telefono">+52 55 1234 5678</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobFinder. Conectando talento joven con oportunidades.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modales -->
+    
+    <!-- Modal de términos -->
+    <div id="termsModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Términos y Condiciones para Empresas</h3>
+                <span class="close" onclick="closeModal('termsModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <h4>1. Publicación de empleos</h4>
+                <p>Las empresas se comprometen a publicar ofertas reales y legítimas, especialmente diseñadas para candidatos sin experiencia.</p>
+                
+                <h4>2. Responsabilidades</h4>
+                <p>La empresa es responsable de proporcionar la formación necesaria y un ambiente de trabajo seguro para candidatos junior.</p>
+                
+                <h4>3. Proceso de selección</h4>
+                <p>Se compromete a evaluar candidatos de forma justa, considerando su potencial más que su experiencia previa.</p>
+                
+                <h4>4. Privacidad</h4>
+                <p>Toda información de candidatos debe ser tratada de forma confidencial y utilizada únicamente para procesos de selección.</p>
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('termsModal')" class="btn-primary">Entendido</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de preview de empleo -->
+    <div id="jobPreviewModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Vista previa del empleo</h3>
+                <span class="close" onclick="closeModal('jobPreviewModal')">&times;</span>
+            </div>
+            <div class="modal-body" id="jobPreviewContent">
+                <!-- Contenido generado dinámicamente -->
+            </div>
+            <div class="modal-footer">
+                <button onclick="closeModal('jobPreviewModal')" class="btn-secondary">Editar</button>
+                <button onclick="publishJob()" class="btn-primary">Publicar así</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="firebase-config.js"></script>
+    <script src="script.js"></script>
+    <script src="empresarios-script.js"></script>
+</body>
+</html> 

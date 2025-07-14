@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Planes y Precios</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="pricing-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <script src="https://js.stripe.com/v3/"></script>
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <div class="logo-icon">
+                        <span class="logo-letters">JF</span>
+                    </div>
+                    <h1><a href="index.html">JobFinder</a></h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">Inicio</a>
+                    <a href="index.html#jobs">Empleos</a>
+                    <a href="#pricing" class="active">Precios</a>
+                    <div class="user-section" id="userSection">
+                        <a href="login.html" class="login-link" id="loginLink">
+                            <i class="fas fa-user"></i>
+                            Iniciar Sesión
+                        </a>
+                        <div class="user-menu hidden" id="userMenu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="userName">Usuario</span>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="dashboard.html">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Mi Dashboard
+                                </a>
+                                <a href="#" onclick="showProfile()">
+                                    <i class="fas fa-user"></i>
+                                    Mi Perfil
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section class="pricing-hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1>Encuentra el plan perfecto para ti</h1>
+                    <p>Accede a todas las funcionalidades premium y lleva tu búsqueda de empleo al siguiente nivel</p>
+                    
+                    <!-- Toggle de planes -->
+                    <div class="billing-toggle">
+                        <span class="toggle-label">Mensual</span>
+                        <label class="switch">
+                            <input type="checkbox" id="billingToggle" onchange="toggleBilling()">
+                            <span class="slider"></span>
+                        </label>
+                        <span class="toggle-label">Anual <span class="discount-badge">20% OFF</span></span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Plans Section -->
+        <section id="pricing" class="pricing-section">
+            <div class="container">
+                <div class="pricing-grid">
+                    <!-- Plan Gratuito -->
+                    <div class="pricing-card free-plan">
+                        <div class="plan-header">
+                            <h3>Gratuito</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount">0</span>
+                                <span class="period">/mes</span>
+                            </div>
+                            <p class="plan-description">Perfecto para empezar tu búsqueda</p>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Hasta 5 aplicaciones por mes</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Búsqueda básica de empleos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertas de empleo básicas</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Acceso a empleos públicos</span>
+                            </div>
+                            <div class="feature disabled">
+                                <i class="fas fa-times"></i>
+                                <span>Empleos exclusivos</span>
+                            </div>
+                            <div class="feature disabled">
+                                <i class="fas fa-times"></i>
+                                <span>Análisis de perfil</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-button current-plan" disabled>
+                            Plan Actual
+                        </button>
+                    </div>
+
+                    <!-- Plan Premium -->
+                    <div class="pricing-card premium-plan popular">
+                        <div class="popular-badge">Más Popular</div>
+                        <div class="plan-header">
+                            <h3>Premium</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount monthly-price">249</span>
+                                <span class="amount yearly-price hidden">199</span>
+                                <span class="period monthly-period">/mes</span>
+                                <span class="period yearly-period hidden">/mes</span>
+                            </div>
+                            <p class="plan-description">Para profesionales serios</p>
+                            <p class="yearly-save hidden">Ahorra $600 MXN al año</p>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Aplicaciones ilimitadas</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Acceso a empleos exclusivos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Aplicación prioritaria</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Análisis avanzado de perfil</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Alertas personalizadas</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Soporte prioritario</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Sin anuncios</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-button" onclick="selectPlan('premium')">
+                            <span class="button-text">Elegir Premium</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+
+                    <!-- Plan Empresa -->
+                    <div class="pricing-card enterprise-plan">
+                        <div class="plan-header">
+                            <h3>Empresa</h3>
+                            <div class="price">
+                                <span class="currency">$</span>
+                                <span class="amount monthly-price">2,499</span>
+                                <span class="amount yearly-price hidden">1,999</span>
+                                <span class="period monthly-period">/mes</span>
+                                <span class="period yearly-period hidden">/mes</span>
+                            </div>
+                            <p class="plan-description">Para reclutadores y empresas</p>
+                            <p class="yearly-save hidden">Ahorra $6,000 MXN al año</p>
+                        </div>
+                        
+                        <div class="plan-features">
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Publicar hasta 10 empleos/mes</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Empleos destacados</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Analytics detallados</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Gestión de candidatos</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Branding personalizado</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>Soporte dedicado</span>
+                            </div>
+                            <div class="feature">
+                                <i class="fas fa-check"></i>
+                                <span>API de integración</span>
+                            </div>
+                        </div>
+                        
+                        <button class="plan-button" onclick="selectPlan('enterprise')">
+                            <span class="button-text">Elegir Empresa</span>
+                            <i class="fas fa-arrow-right"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Features Comparison -->
+        <section class="features-comparison">
+            <div class="container">
+                <h2>Comparación Detallada</h2>
+                <div class="comparison-table">
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Funcionalidad</th>
+                                <th>Gratuito</th>
+                                <th>Premium</th>
+                                <th>Empresa</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Aplicaciones por mes</td>
+                                <td>5</td>
+                                <td>Ilimitadas</td>
+                                <td>N/A</td>
+                            </tr>
+                            <tr>
+                                <td>Empleos exclusivos</td>
+                                <td><i class="fas fa-times text-red"></i></td>
+                                <td><i class="fas fa-check text-green"></i></td>
+                                <td><i class="fas fa-check text-green"></i></td>
+                            </tr>
+                            <tr>
+                                <td>Publicar empleos</td>
+                                <td><i class="fas fa-times text-red"></i></td>
+                                <td><i class="fas fa-times text-red"></i></td>
+                                <td>10/mes</td>
+                            </tr>
+                            <tr>
+                                <td>Analytics</td>
+                                <td>Básico</td>
+                                <td>Avanzado</td>
+                                <td>Completo</td>
+                            </tr>
+                            <tr>
+                                <td>Soporte</td>
+                                <td>Email</td>
+                                <td>Prioritario</td>
+                                <td>Dedicado</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </section>
+
+        <!-- FAQ Section -->
+        <section class="faq-section">
+            <div class="container">
+                <h2>Preguntas Frecuentes</h2>
+                <div class="faq-grid">
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h4>¿Puedo cancelar mi suscripción en cualquier momento?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Sí, puedes cancelar tu suscripción en cualquier momento desde tu dashboard. No hay penalizaciones ni costos adicionales.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h4>¿Qué métodos de pago aceptan?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Aceptamos todas las tarjetas de crédito principales (Visa, Mastercard, American Express), tarjetas de débito mexicanas, OXXO Pay, y transferencias bancarias a través de Stripe.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h4>¿Hay garantía de devolución?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Ofrecemos una garantía de devolución de 14 días sin preguntas. Si no estás satisfecho, te devolvemos tu dinero.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            <h4>¿Puedo cambiar de plan después?</h4>
+                            <i class="fas fa-chevron-down"></i>
+                        </div>
+                        <div class="faq-answer">
+                            <p>Por supuesto. Puedes cambiar tu plan en cualquier momento. Los cambios se aplican inmediatamente con prorrateado.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobFinder</h4>
+                    <p>Tu plataforma de confianza para encontrar el trabajo ideal.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="#pricing">Precios</a></li>
+                        <li><a href="login.html">Iniciar Sesión</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobFinder. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Loading overlay -->
+    <div class="loading-overlay" id="loadingOverlay">
+        <div class="loading-spinner">
+            <i class="fas fa-credit-card loading-icon"></i>
+            <p>Procesando pago...</p>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="pricing-script.js"></script>
+</body>
+</html> 

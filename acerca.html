@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Acerca de Nosotros</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="acerca-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1><a href="index.html">JobFinder</a></h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">Inicio</a>
+                    <a href="index.html#jobs">Empleos</a>
+                    <a href="pricing.html">Precios</a>
+                    <a href="acerca.html" class="active">Acerca de</a>
+                    <div class="user-section" id="userSection">
+                        <a href="login.html" class="login-link" id="loginLink">
+                            <i class="fas fa-user"></i>
+                            Iniciar Sesión
+                        </a>
+                        <div class="user-menu hidden" id="userMenu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="userName">Usuario</span>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="dashboard.html">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Mi Dashboard
+                                </a>
+                                <a href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    Mi Perfil
+                                </a>
+                                <a href="favoritos.html">
+                                    <i class="fas fa-heart"></i>
+                                    Favoritos
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="about-main">
+        <!-- Hero Section -->
+        <section class="about-hero">
+            <div class="container">
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Acerca de Nosotros</span>
+                </div>
+                
+                <div class="hero-content">
+                    <h1>Conectamos talento con oportunidades</h1>
+                    <p class="hero-subtitle">JobFinder es la plataforma líder en búsqueda de empleo que transforma la manera en que profesionales y empresas se conectan.</p>
+                    
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <span class="stat-number" id="jobsCount">50,000+</span>
+                            <span class="stat-label">Empleos activos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="companiesCount">12,000+</span>
+                            <span class="stat-label">Empresas registradas</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="usersCount">1.5M+</span>
+                            <span class="stat-label">Usuarios activos</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-number" id="hiredCount">200K+</span>
+                            <span class="stat-label">Personas contratadas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Misión y Visión -->
+        <section class="mission-vision">
+            <div class="container">
+                <div class="mission-vision-grid">
+                    <div class="mission-card">
+                        <div class="card-icon">
+                            <i class="fas fa-bullseye"></i>
+                        </div>
+                        <h3>Nuestra Misión</h3>
+                        <p>Democratizar el acceso al empleo de calidad, conectando a profesionales talentosos con las mejores oportunidades laborales, sin importar su ubicación o experiencia previa.</p>
+                    </div>
+                    
+                    <div class="vision-card">
+                        <div class="card-icon">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                        <h3>Nuestra Visión</h3>
+                        <p>Ser la plataforma de empleo más confiable y eficiente del mundo, donde cada persona pueda encontrar su trabajo ideal y cada empresa encuentre el talento perfecto.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Valores -->
+        <section class="values-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nuestros Valores</h2>
+                    <p>Los principios que guían cada decisión que tomamos</p>
+                </div>
+                
+                <div class="values-grid">
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-handshake"></i>
+                        </div>
+                        <h4>Transparencia</h4>
+                        <p>Creemos en la comunicación abierta y honesta entre candidatos y empleadores.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-rocket"></i>
+                        </div>
+                        <h4>Innovación</h4>
+                        <p>Constantemente mejoramos nuestra tecnología para ofrecer la mejor experiencia.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h4>Inclusividad</h4>
+                        <p>Promovemos la diversidad y la igualdad de oportunidades para todos.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-star"></i>
+                        </div>
+                        <h4>Excelencia</h4>
+                        <p>Nos esforzamos por superar las expectativas en cada interacción.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h4>Confianza</h4>
+                        <p>Protegemos la privacidad y seguridad de todos nuestros usuarios.</p>
+                    </div>
+                    
+                    <div class="value-card">
+                        <div class="value-icon">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h4>Pasión</h4>
+                        <p>Amamos lo que hacemos y nos emociona ayudar a cambiar vidas.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Historia -->
+        <section class="history-section">
+            <div class="container">
+                <div class="history-content">
+                    <div class="history-text">
+                        <h2>Nuestra Historia</h2>
+                        <p class="history-intro">JobFinder nació en 2018 con una idea simple pero poderosa: hacer que encontrar trabajo sea más fácil, rápido y efectivo para todos.</p>
+                        
+                        <div class="timeline">
+                            <div class="timeline-item">
+                                <div class="timeline-year">2018</div>
+                                <div class="timeline-content">
+                                    <h4>El Comienzo</h4>
+                                    <p>Fundamos JobFinder con 5 empleados y un sueño de revolucionar el mercado laboral.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-year">2019</div>
+                                <div class="timeline-content">
+                                    <h4>Expansión</h4>
+                                    <p>Llegamos a 10,000 usuarios y establecimos alianzas con las primeras 100 empresas.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-year">2021</div>
+                                <div class="timeline-content">
+                                    <h4>Crecimiento</h4>
+                                    <p>Alcanzamos 500,000 usuarios activos y expandimos a 15 países de Latinoamérica.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-year">2023</div>
+                                <div class="timeline-content">
+                                    <h4>Innovación IA</h4>
+                                    <p>Lanzamos nuestro sistema de matching con inteligencia artificial.</p>
+                                </div>
+                            </div>
+                            
+                            <div class="timeline-item">
+                                <div class="timeline-year">2024</div>
+                                <div class="timeline-content">
+                                    <h4>Líder del Mercado</h4>
+                                    <p>Hoy somos la plataforma #1 en búsqueda de empleo con 1.5M+ usuarios.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="history-visual">
+                        <div class="achievement-cards">
+                            <div class="achievement-card">
+                                <i class="fas fa-trophy"></i>
+                                <h4>Premio Innovación 2023</h4>
+                                <p>Mejor plataforma de empleo en LATAM</p>
+                            </div>
+                            
+                            <div class="achievement-card">
+                                <i class="fas fa-award"></i>
+                                <h4>Certificación ISO</h4>
+                                <p>Calidad y seguridad garantizada</p>
+                            </div>
+                            
+                            <div class="achievement-card">
+                                <i class="fas fa-medal"></i>
+                                <h4>Top Employer</h4>
+                                <p>Reconocidos como mejor empleador</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Equipo -->
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header">
+                    <h2>Nuestro Equipo</h2>
+                    <p>Las mentes brillantes detrás de JobFinder</p>
+                </div>
+                
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-tie"></i>
+                        </div>
+                        <h4>Ana García</h4>
+                        <p class="member-role">CEO & Fundadora</p>
+                        <p class="member-bio">Ingeniera con 15 años de experiencia en tecnología y recursos humanos.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-graduate"></i>
+                        </div>
+                        <h4>Carlos Mendoza</h4>
+                        <p class="member-role">CTO</p>
+                        <p class="member-bio">Arquitecto de software especialista en inteligencia artificial y machine learning.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-github"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h4>María Rodríguez</h4>
+                        <p class="member-role">Directora de Producto</p>
+                        <p class="member-bio">Experta en UX/UI con pasión por crear experiencias excepcionales para usuarios.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-dribbble"></i></a>
+                        </div>
+                    </div>
+                    
+                    <div class="team-member">
+                        <div class="member-photo">
+                            <i class="fas fa-user-cog"></i>
+                        </div>
+                        <h4>Roberto Silva</h4>
+                        <p class="member-role">Director de Ventas</p>
+                        <p class="member-bio">Líder en desarrollo de negocios con amplia experiencia en el sector tecnológico.</p>
+                        <div class="member-social">
+                            <a href="#"><i class="fab fa-linkedin"></i></a>
+                            <a href="#"><i class="fab fa-twitter"></i></a>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="team-cta">
+                    <h3>¿Quieres unirte a nuestro equipo?</h3>
+                    <p>Estamos siempre en búsqueda de talento excepcional</p>
+                    <a href="index.html#jobs" class="join-team-btn">
+                        <i class="fas fa-briefcase"></i>
+                        Ver oportunidades
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Call to Action -->
+        <section class="cta-section">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>¿Listo para encontrar tu próxima oportunidad?</h2>
+                    <p>Únete a millones de profesionales que ya confían en JobFinder para avanzar en sus carreras</p>
+                    
+                    <div class="cta-buttons">
+                        <a href="login.html" class="cta-btn primary">
+                            <i class="fas fa-user-plus"></i>
+                            Crear cuenta gratis
+                        </a>
+                        <a href="index.html#jobs" class="cta-btn secondary">
+                            <i class="fas fa-search"></i>
+                            Explorar empleos
+                        </a>
+                    </div>
+                    
+                    <div class="trust-indicators">
+                        <div class="trust-item">
+                            <i class="fas fa-shield-check"></i>
+                            <span>100% Seguro</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-clock"></i>
+                            <span>Respuesta en 24h</span>
+                        </div>
+                        <div class="trust-item">
+                            <i class="fas fa-star"></i>
+                            <span>4.9/5 estrellas</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobFinder</h4>
+                    <p>Tu plataforma de confianza para encontrar el trabajo ideal.</p>
+                    <div class="footer-social">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#jobs">Empleos</a></li>
+                        <li><a href="pricing.html">Precios</a></li>
+                        <li><a href="acerca.html">Acerca de</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Empresa</h4>
+                    <ul>
+                        <li><a href="#">Privacidad</a></li>
+                        <li><a href="#">Términos</a></li>
+                        <li><a href="#">Contacto</a></li>
+                        <li><a href="#">Soporte</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Recursos</h4>
+                    <ul>
+                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Guías</a></li>
+                        <li><a href="#">API</a></li>
+                        <li><a href="#">Status</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobFinder. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script src="acerca-script.js"></script>
+</body>
+</html> 

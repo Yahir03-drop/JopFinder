@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JobFinder - Mis Favoritos</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="favoritos-styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+    <header class="header">
+        <div class="container">
+            <div class="navbar">
+                <div class="logo">
+                    <i class="fas fa-briefcase"></i>
+                    <h1><a href="index.html">JobFinder</a></h1>
+                </div>
+                <nav class="nav-menu">
+                    <a href="index.html">Inicio</a>
+                    <a href="index.html#jobs">Empleos</a>
+                    <a href="pricing.html">Precios</a>
+                    <div class="user-section" id="userSection">
+                        <a href="login.html" class="login-link" id="loginLink">
+                            <i class="fas fa-user"></i>
+                            Iniciar Sesión
+                        </a>
+                        <div class="user-menu hidden" id="userMenu">
+                            <div class="user-info">
+                                <i class="fas fa-user-circle"></i>
+                                <span id="userName">Usuario</span>
+                            </div>
+                            <div class="user-dropdown">
+                                <a href="dashboard.html">
+                                    <i class="fas fa-tachometer-alt"></i>
+                                    Mi Dashboard
+                                </a>
+                                <a href="profile.html">
+                                    <i class="fas fa-user"></i>
+                                    Mi Perfil
+                                </a>
+                                <a href="favoritos.html" class="active">
+                                    <i class="fas fa-heart"></i>
+                                    Favoritos
+                                </a>
+                                <a href="#" onclick="logout()">
+                                    <i class="fas fa-sign-out-alt"></i>
+                                    Cerrar Sesión
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main class="favorites-main">
+        <div class="container">
+            <!-- Header de favoritos -->
+            <div class="favorites-header">
+                <div class="breadcrumb">
+                    <a href="index.html"><i class="fas fa-home"></i> Inicio</a>
+                    <i class="fas fa-chevron-right"></i>
+                    <span>Mis Favoritos</span>
+                </div>
+                
+                <div class="page-title">
+                    <h1><i class="fas fa-heart"></i> Mis Empleos Favoritos</h1>
+                    <p>Todos los empleos que has guardado en un solo lugar</p>
+                </div>
+
+                <div class="favorites-stats">
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-bookmark"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="totalFavorites">0</span>
+                            <span class="stat-label">Empleos guardados</span>
+                        </div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div class="stat-info">
+                            <span class="stat-number" id="recentFavorites">0</span>
+                            <span class="stat-label">Esta semana</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Filtros y ordenamiento -->
+            <div class="favorites-controls">
+                <div class="filter-group">
+                    <select id="categoryFilter">
+                        <option value="">Todas las categorías</option>
+                        <option value="tecnologia">Tecnología</option>
+                        <option value="marketing">Marketing</option>
+                        <option value="ventas">Ventas</option>
+                        <option value="diseño">Diseño</option>
+                        <option value="finanzas">Finanzas</option>
+                        <option value="recursos-humanos">Recursos Humanos</option>
+                        <option value="salud">Salud</option>
+                        <option value="educacion">Educación</option>
+                        <option value="legal">Legal</option>
+                        <option value="ingenieria">Ingeniería</option>
+                        <option value="consultoria">Consultoría</option>
+                        <option value="logistica">Logística</option>
+                        <option value="turismo">Turismo</option>
+                        <option value="comunicacion">Comunicación</option>
+                    </select>
+
+                    <select id="sortFilter">
+                        <option value="recent">Más recientes</option>
+                        <option value="title">Por título</option>
+                        <option value="company">Por empresa</option>
+                        <option value="salary">Por salario</option>
+                    </select>
+                </div>
+
+                <div class="view-controls">
+                    <button class="view-btn active" id="gridView" onclick="setView('grid')">
+                        <i class="fas fa-th-large"></i>
+                    </button>
+                    <button class="view-btn" id="listView" onclick="setView('list')">
+                        <i class="fas fa-list"></i>
+                    </button>
+                    
+                    <button class="clear-all-btn" onclick="clearAllFavorites()">
+                        <i class="fas fa-trash"></i>
+                        Limpiar todo
+                    </button>
+                </div>
+            </div>
+
+            <!-- Lista de favoritos -->
+            <div class="favorites-content">
+                <div class="favorites-grid" id="favoritesContainer">
+                    <!-- Los empleos favoritos se cargarán aquí dinámicamente -->
+                </div>
+
+                <!-- Estado vacío -->
+                <div class="empty-state hidden" id="emptyState">
+                    <div class="empty-icon">
+                        <i class="fas fa-heart-broken"></i>
+                    </div>
+                    <h3>No tienes empleos guardados</h3>
+                    <p>Comienza a guardar empleos que te interesen para verlos aquí.</p>
+                    <a href="index.html#jobs" class="cta-btn">
+                        <i class="fas fa-search"></i>
+                        Buscar Empleos
+                    </a>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>JobFinder</h4>
+                    <p>Tu plataforma de confianza para encontrar el trabajo ideal.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Enlaces</h4>
+                    <ul>
+                        <li><a href="index.html">Inicio</a></li>
+                        <li><a href="index.html#jobs">Empleos</a></li>
+                        <li><a href="pricing.html">Precios</a></li>
+                        <li><a href="favoritos.html">Favoritos</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 JobFinder. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Modal para confirmar eliminación -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Confirmar eliminación</h3>
+                <span class="close" onclick="closeConfirmModal()">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>¿Estás seguro de que quieres eliminar este empleo de tus favoritos?</p>
+                <div class="job-preview" id="jobPreview">
+                    <!-- Vista previa del empleo a eliminar -->
+                </div>
+            </div>
+            <div class="modal-actions">
+                <button class="cancel-btn" onclick="closeConfirmModal()">Cancelar</button>
+                <button class="confirm-btn" onclick="confirmRemoveFavorite()">Eliminar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal para detalles del empleo -->
+    <div id="jobModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeJobModal()">&times;</span>
+            <div id="jobModalContent">
+                <!-- El contenido del trabajo se cargará aquí -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script src="favoritos-script.js"></script>
+</body>
+</html> 
